@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Automatically detect the operating system and run the appropriate script
+
+case "$(uname)" in
+    Darwin|Linux)
+        bash dnstest.sh "$@"
+        ;;
+    *CYGWIN*|*MINGW*|*MSYS*)
+        powershell -ExecutionPolicy Bypass -File dnstest.ps1 "$@"
+        ;;
+    *)
+        echo "Unsupported OS"
+        exit 1
+        ;;
+esac
